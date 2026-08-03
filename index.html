@@ -33,7 +33,33 @@ bottom:-150px;
 right:-120px;
 animation:float 12s infinite alternate-reverse;
 }
+.logo{
+font-size:70px;
+margin-bottom:15px;
+animation:float 3s ease-in-out infinite;
+}
 
+.chips{
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+margin:25px 0;
+}
+
+.chips span{
+padding:8px 16px;
+border-radius:25px;
+background:rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.15);
+backdrop-filter:blur(10px);
+font-size:14px;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-8px);}
+}
 @keyframes gradientMove{
 0%{background-position:0% 50%;}
 50%{background-position:100% 50%;}
@@ -111,13 +137,21 @@ iframe{width:100%;height:100%;border:0;display:none;}
 
 <div id="overlay">
 
+<div class="logo">🚀</div>
+
 <h1>JEE Ultimate Test Portal</h1>
 
 <!-- 🔥 ADDED ONLY THIS -->
 <div id="intro">
 😎☠️ Oye bhooooootni....😎🥱<br>
-
 🔥 "Tomar Ji ka system hai... lightly mat lena"
+</div>
+
+<div class="chips">
+    <span>⚡ AI Powered</span>
+    <span>🔒 Secure</span>
+    <span>📱 Responsive</span>
+    <span>🎯 JEE 2026</span>
 </div>
 
 <button onclick="start()">▶ Start Test</button>
