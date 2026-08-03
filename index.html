@@ -8,10 +8,30 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
 html,body{height:100%;overflow:hidden;color:white;}
 
-body{
-background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#000000);
-background-size:400% 400%;
-animation:gradientMove 12s ease infinite;
+body::before{
+content:"";
+position:fixed;
+width:500px;
+height:500px;
+background:#00e5ff;
+filter:blur(140px);
+opacity:.18;
+top:-150px;
+left:-120px;
+animation:float 10s infinite alternate;
+}
+
+body::after{
+content:"";
+position:fixed;
+width:500px;
+height:500px;
+background:#8b5cf6;
+filter:blur(140px);
+opacity:.18;
+bottom:-150px;
+right:-120px;
+animation:float 12s infinite alternate-reverse;
 }
 
 @keyframes gradientMove{
@@ -21,24 +41,24 @@ animation:gradientMove 12s ease infinite;
 }
 
 #overlay{
-position:absolute;
-left:50%;
-top:50%;
-transform:translate(-50%,-50%);
-width:min(92%,760px);
-padding:50px;
-border-radius:30px;
+width:min(92%,780px);
+padding:60px;
+border-radius:32px;
 background:rgba(255,255,255,.08);
-backdrop-filter:blur(25px);
 border:1px solid rgba(255,255,255,.15);
-box-shadow:0 30px 80px rgba(0,0,0,.45);
-text-align:center;
+backdrop-filter:blur(30px);
+box-shadow:
+0 40px 80px rgba(0,0,0,.45),
+inset 0 1px rgba(255,255,255,.15);
 }
 
 h1{
-text-align:center;
-font-size:48px;
-margin-bottom:20px;
+font-size:58px;
+font-weight:800;
+letter-spacing:-2px;
+background:linear-gradient(90deg,#00e5ff,#fff,#8b5cf6);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
 /* 🔥 NEW INTRO EFFECT */
@@ -55,18 +75,13 @@ animation:fadeIn 2s ease;
 }
 
 button{
-padding:16px 48px;
-border:none;
+padding:18px 55px;
+font-size:19px;
 border-radius:60px;
-font-size:18px;
-font-weight:700;
-cursor:pointer;
-color:#fff;
-background:linear-gradient(135deg,#00c6ff,#7c3aed,#ff0080);
+background:linear-gradient(135deg,#00c6ff,#8b5cf6,#ff0080);
 background-size:300% 300%;
-animation:gradientBtn 5s ease infinite;
-box-shadow:0 15px 40px rgba(0,198,255,.35);
-transition:.35s;
+animation:btn 5s infinite;
+box-shadow:0 20px 60px rgba(124,58,237,.45);
 }
 
 button:hover{
